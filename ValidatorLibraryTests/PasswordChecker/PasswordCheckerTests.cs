@@ -23,7 +23,7 @@ namespace ValidatorLibraryTests.PasswordChecker
         {
             var password = AppendPassword("@T",3);
 
-            Assert.True(_passwordChecker.Validate(password));
+            Assert.False(_passwordChecker.Validate(password));
         }
 
         [Fact]
@@ -31,7 +31,7 @@ namespace ValidatorLibraryTests.PasswordChecker
         {
             var password = AppendPassword("TT", 2);
 
-            Assert.True(_passwordChecker.Validate(password));
+            Assert.False(_passwordChecker.Validate(password));
         }
 
         [Fact]
@@ -39,13 +39,13 @@ namespace ValidatorLibraryTests.PasswordChecker
         {
             var password = AppendPassword("@@", 2);
 
-            Assert.True(_passwordChecker.Validate(password));
+            Assert.False(_passwordChecker.Validate(password));
         }
 
         [Fact]
         public void PasswordChecker_ReturnsFalse_WhenEmpty()
         {
-            Assert.True(_passwordChecker.Validate(""));
+            Assert.False(_passwordChecker.Validate(""));
         }
 
         private string AppendPassword(string password, int lengthToSubtract)
