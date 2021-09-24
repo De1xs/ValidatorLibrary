@@ -1,4 +1,4 @@
-namespace ValidatorLibraryTests.PasswordChecker
+namespace AdditionalTests
 {
     using Xunit;
     using PSP;

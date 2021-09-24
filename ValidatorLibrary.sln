@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSP", "..\KersysValidationLibrary\PSP\PSP.csproj", "{99EA81D2-B119-47C1-993F-6A94AFED8E62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdditionalTests", "AdditionalTests\AdditionalTests.csproj", "{91731B8F-76A3-4F54-A649-A47F48E7BC14}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSP.Test", "..\KersysValidationLibrary\Validation\PSP.Test.csproj", "{824A6889-D20D-44DA-9E76-DDD0337D4DDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSP.Test", "ValidationTests\PSP.Test.csproj", "{9FE7B022-98EA-451B-9FE2-3BE64057945E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdditionalTests", "AdditionalTests\AdditionalTests.csproj", "{91731B8F-76A3-4F54-A649-A47F48E7BC14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValidatorLibrary", "ValidatorLibrary\ValidatorLibrary.csproj", "{143783F3-914F-4689-B731-258EEA6FE8B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{99EA81D2-B119-47C1-993F-6A94AFED8E62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99EA81D2-B119-47C1-993F-6A94AFED8E62}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99EA81D2-B119-47C1-993F-6A94AFED8E62}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99EA81D2-B119-47C1-993F-6A94AFED8E62}.Release|Any CPU.Build.0 = Release|Any CPU
-		{824A6889-D20D-44DA-9E76-DDD0337D4DDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{824A6889-D20D-44DA-9E76-DDD0337D4DDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{824A6889-D20D-44DA-9E76-DDD0337D4DDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{824A6889-D20D-44DA-9E76-DDD0337D4DDE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{91731B8F-76A3-4F54-A649-A47F48E7BC14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{91731B8F-76A3-4F54-A649-A47F48E7BC14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91731B8F-76A3-4F54-A649-A47F48E7BC14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91731B8F-76A3-4F54-A649-A47F48E7BC14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FE7B022-98EA-451B-9FE2-3BE64057945E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FE7B022-98EA-451B-9FE2-3BE64057945E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FE7B022-98EA-451B-9FE2-3BE64057945E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FE7B022-98EA-451B-9FE2-3BE64057945E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{143783F3-914F-4689-B731-258EEA6FE8B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{143783F3-914F-4689-B731-258EEA6FE8B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{143783F3-914F-4689-B731-258EEA6FE8B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{143783F3-914F-4689-B731-258EEA6FE8B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

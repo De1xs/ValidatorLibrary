@@ -1,4 +1,4 @@
-﻿namespace ValidatorLibraryTests.PhoneValidator
+﻿namespace AdditionalTests
 {
     using Xunit;
     using PSP;
