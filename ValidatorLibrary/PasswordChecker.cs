@@ -5,14 +5,14 @@ namespace PSP
 {
     public class PasswordChecker
     {
-        private readonly int _minLength = 8;
+        private static readonly int _minLength = 8;
 
-        public bool IsValidPassword(string password)
+        public static bool IsValid(string password)
         {
             return CorrectLength(password) && IncludesUpperCase(password) && IncludesSpecialChar(password);
         }
 
-        private bool IncludesSpecialChar(string password)
+        private static bool IncludesSpecialChar(string password)
         {
             var specialChars = password.ToCharArray()
                 .Where(c => !Char.IsLetter(c) && !Char.IsDigit(c))
@@ -27,12 +27,12 @@ namespace PSP
             return true;
         }
 
-        private bool CorrectLength(string password)
+        private static bool CorrectLength(string password)
         {
             return password.Length >= _minLength;
         }
 
-        private bool IncludesUpperCase(string password)
+        private static bool IncludesUpperCase(string password)
         {
             var upperCaseChars = password.ToCharArray()
                 .Where(c => Char.IsLetter(c))

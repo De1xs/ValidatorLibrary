@@ -1,51 +1,52 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PSP;
-using System;
-using Xunit;
 
-namespace Validation
+namespace ValidatorsUnitTests
 {
-    public class UserTests
+    [TestClass]
+    public class PasswordValidatorUnitTests
     {
-        [Fact]
-        public void PasswordCheckerLengthTest()
+        [TestMethod]
+        public void Password_Blank_Spaces_Not_Valid()
         {
-            // Arrange
-            var validator = new PasswordChecker();
-            string password = "Ab*12";
-
-            // Act
-            var result = validator.IsValidPassword(password);
-
-            // Assert
-            Assert.False(result);
+            var isValid = PasswordChecker.IsValid("               ");
+            Assert.AreEqual(false, isValid, "Password only spaces");
         }
 
-        [Fact]
-        public void PasswordCheckerUppercaseTest()
+        [TestMethod]
+        public void Password_Too_Short_Not_Valid()
         {
-            // Arrange
-            var validator = new PasswordChecker();
-            string password = "a*123lal$asdoqw123";
-
-            // Act
-            var result = validator.IsValidPassword(password);
-
-            // Assert
-            Assert.False(result);
+            var isValid = PasswordChecker.IsValid("ba");
+            Assert.AreEqual(false, isValid, "Password too short");
         }
 
-        [Fact]
-        public void PasswordCheckerSpecialCharTest()
+        [TestMethod]
+        public void Password_No_Uppercase_Not_Valid()
         {
-            // Arrange
-            var validator = new PasswordChecker();
-            string password = "Ab123LoA4213";
-
-            // Act
-            var result = validator.IsValidPassword(password);
-
-            // Assert
-            Assert.False(result);
+            var isValid = PasswordChecker.IsValid("aaaasdjahsdkjhasd");
+            Assert.AreEqual(false, isValid, "No uppercase letter in password");
         }
+
+        [TestMethod]
+        public void Password_No_Numbers_Not_Valid()
+        {
+            var isValid = PasswordChecker.IsValid("SlapTaZoDziuikasssssssss");
+            Assert.AreEqual(false, isValid, "Password doesnt contain numbers");
+        }
+
+        [TestMethod]
+        public void Password_No_Special_Chars_Not_Valid()
+        {
+            var isValid = PasswordChecker.IsValid("SlapTaZoDz12345");
+            Assert.AreEqual(false, isValid, "Password doesnt contain special characters");
+        }
+
+        [TestMethod]
+        public void Password_Good_Is_Valid()
+        {
+            var isValid = PasswordChecker.IsValid("slapTaZodZiukas13223!@#%%");
+            Assert.AreEqual(true, isValid, "A valid password.");
+        }
+
     }
 }
