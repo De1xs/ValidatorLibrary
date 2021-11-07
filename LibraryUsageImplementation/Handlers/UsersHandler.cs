@@ -1,8 +1,7 @@
-﻿using LibraryUsageImplementation.Models;
+﻿using LibraryUsageImplementation.DataStorage;
+using LibraryUsageImplementation.Models;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text.Json;
 using ValidatorsUnitTests;
 using ValidatorsUnitTests.Source.Validators;
 
@@ -10,28 +9,14 @@ namespace LibraryUsageImplementation.Handlers
 {
     public class UsersHandler : IUsersHandler
     {
-        private string databaseFileName = "MyDatabase.json";
+        private readonly string databaseFileName = "MyDatabase.json";
 
-        private MyUsersDatabase myDatabase;
-        public UsersHandler()
+        private readonly MyUsersDatabase myDatabase;
+        private readonly IDatabaseProvider _databaseProvider;
+        public UsersHandler(IDatabaseProvider databaseProvider)
         {
-            if (!File.Exists(databaseFileName))
-            {
-                myDatabase = new MyUsersDatabase() { currentId = 0, userList = new List<User>() };
-                string jsonString = JsonSerializer.Serialize(myDatabase);
-                File.WriteAllText(databaseFileName, jsonString);
-            }
-            else
-            {
-                var jsonString = File.ReadAllText(databaseFileName);
-                myDatabase = JsonSerializer.Deserialize<MyUsersDatabase>(jsonString);
-                if(myDatabase.userList == null)
-                {
-                    myDatabase = new MyUsersDatabase() { currentId = 0, userList = new List<User>() { } };
-                }
-            }
-
-            
+            _databaseProvider = databaseProvider;
+            myDatabase = databaseProvider.GetDatabase(databaseFileName);
         }
 
         public User CreateUser(User user)
@@ -40,14 +25,14 @@ namespace LibraryUsageImplementation.Handlers
 
 
             //save
-            user.userId = myDatabase.currentId;
-            myDatabase.currentId++;
+            user.UserId = myDatabase.CurrentId;
+            myDatabase.CurrentId++;
 
-            myDatabase.userList.Add(user);
+            myDatabase.UserList.Add(user);
 
-            
 
-            SaveFileChanges();
+
+            _databaseProvider.SaveFileChanges(databaseFileName, myDatabase);
 
             return user;
         }
@@ -57,9 +42,9 @@ namespace LibraryUsageImplementation.Handlers
             var user = GetUser(userId);
             if(user != null)
             {
-                myDatabase.userList.Remove(user);
+                myDatabase.UserList.Remove(user);
 
-                SaveFileChanges();
+                _databaseProvider.SaveFileChanges(databaseFileName, myDatabase);
                 return user;
             }
             else
@@ -70,28 +55,28 @@ namespace LibraryUsageImplementation.Handlers
 
         public List<User> GetAllUsers()
         {
-            return myDatabase.userList;
+            return myDatabase.UserList;
         }
 
         public User GetUser(int userId)
         {
-            return myDatabase.userList.Where(u => u.userId == userId).SingleOrDefault();
+            return myDatabase.UserList.Where(u => u.UserId == userId).SingleOrDefault();
         }
 
         public User ModifyUser(User user)
         {
-            var oldUser = GetUser(user.userId);
+            var oldUser = GetUser(user.UserId);
 
             if(oldUser != null)
             {
                 ValidateUserInfo(user);
 
-                var indexToChange = myDatabase.userList.IndexOf(oldUser);
-                myDatabase.userList[indexToChange] = user;
+                var indexToChange = myDatabase.UserList.IndexOf(oldUser);
+                myDatabase.UserList[indexToChange] = user;
 
-                SaveFileChanges();
+                _databaseProvider.SaveFileChanges(databaseFileName, myDatabase);
 
-                return oldUser;
+                return user;
             }
             else
             {
@@ -99,28 +84,22 @@ namespace LibraryUsageImplementation.Handlers
             }
         }
 
-        public void ValidateUserInfo(User user)
+        private static void ValidateUserInfo(User user)
         {
-            if (!EmailValidator.isEmailValid(user.email))
+            if (!EmailValidator.isEmailValid(user.Email))
             {
                 throw new ValidationException("Email invalid");
             }
 
-            if (!PasswordValidator.IsPasswordValid(user.password))
+            if (!PasswordValidator.IsPasswordValid(user.Password))
             {
                 throw new ValidationException("Password invalid");
             }
 
-            if (!PhoneNumberValidator.IsPhoneNumberValid(user.phoneNumber))
+            if (!PhoneNumberValidator.IsPhoneNumberValid(user.PhoneNumber))
             {
                 throw new ValidationException("Phone number invalid");
             }
-        }
-
-        private void SaveFileChanges()
-        {
-            string jsonString = JsonSerializer.Serialize(myDatabase);
-            File.WriteAllText(databaseFileName, jsonString);
         }
     }
 }

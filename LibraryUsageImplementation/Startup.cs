@@ -1,3 +1,4 @@
+using LibraryUsageImplementation.DataStorage;
 using LibraryUsageImplementation.Handlers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,6 +22,7 @@ namespace LibraryUsageImplementation
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IUsersHandler, UsersHandler>();
+            services.AddSingleton<IDatabaseProvider, DatabaseProvider>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
